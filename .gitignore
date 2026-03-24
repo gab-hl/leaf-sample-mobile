@@ -3,6 +3,9 @@
 # dependencies
 node_modules/
 
+# GitHub Packages auth (copy from .npmrc.example; use NPM_TOKEN or paste token locally)
+.npmrc
+
 # Expo
 .expo/
 dist/

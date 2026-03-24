@@ -1,0 +1,88 @@
+diff --git a/node_modules/@herbalifedev/leaf-mobile/dist-mobile/module/components/SideBar/SideBar.js b/node_modules/@herbalifedev/leaf-mobile/dist-mobile/module/components/SideBar/SideBar.js
+index dec7e48..b48d314 100644
+--- a/node_modules/@herbalifedev/leaf-mobile/dist-mobile/module/components/SideBar/SideBar.js
++++ b/node_modules/@herbalifedev/leaf-mobile/dist-mobile/module/components/SideBar/SideBar.js
+@@ -2,7 +2,8 @@
+ 
+ import { Children, isValidElement, useEffect, useRef, useState } from "react";
+ import { match, P } from "ts-pattern";
+-import { Animated, Modal, Pressable, SafeAreaView, ScrollView, View } from "react-native";
++import { Animated, Modal, Pressable, ScrollView, View } from "react-native";
++import { SafeAreaView } from "react-native-safe-area-context";
+ import { color, radius, semantic, spacing } from "@herbalifedev/leaf-mobile/tokens";
+ import { chain } from "../../the-chain/index.js";
+ import { SideBarHeader } from "../_internal/SideBarHeader/index.js";
+diff --git a/node_modules/@herbalifedev/leaf-mobile/dist-mobile/module/components/Skeleton/Skeleton.js b/node_modules/@herbalifedev/leaf-mobile/dist-mobile/module/components/Skeleton/Skeleton.js
+index 979d13a..99d2a57 100644
+--- a/node_modules/@herbalifedev/leaf-mobile/dist-mobile/module/components/Skeleton/Skeleton.js
++++ b/node_modules/@herbalifedev/leaf-mobile/dist-mobile/module/components/Skeleton/Skeleton.js
+@@ -4,7 +4,7 @@ import { MotiView } from "moti";
+ import { View } from "react-native";
+ import { match } from "ts-pattern";
+ import { chain } from "../../the-chain/index.js";
+-import { semantic, size, opacity } from "@herbalifedev/leaf-mobile/tokens";
++import { semantic, size, opacity, radius as radiusToken } from "@herbalifedev/leaf-mobile/tokens";
+ import { jsx as _jsx } from "react/jsx-runtime";
+ const opacity25 = opacity["75"] / 3;
+ const opacity50 = opacity["75"] / 1.5;
+@@ -17,7 +17,7 @@ export const Skeleton = ({
+   style,
+   ...props
+ }) => {
+-  const radius = match(type).with("circle", () => radius.full).with("shape", () => radius.sm).exhaustive();
++  const radius = match(type).with("circle", () => radiusToken.full).with("shape", () => radiusToken.sm).exhaustive();
+   const computedWidth = match(type).with("circle", () => width ?? height ?? size[8]).with("shape", () => width ?? size[14]).exhaustive();
+   const computedHeight = match(type).with("circle", () => height ?? width ?? size[8]).with("shape", () => height ?? size[6]).exhaustive();
+   const containerStyle = baseStyle.borderRadius(radius).width(computedWidth).height(computedHeight).done();
+diff --git a/node_modules/@herbalifedev/leaf-mobile/dist-mobile/module/components/_internal/BottomSheet/BottomSheet.js b/node_modules/@herbalifedev/leaf-mobile/dist-mobile/module/components/_internal/BottomSheet/BottomSheet.js
+index 6268386..6c5c8f5 100644
+--- a/node_modules/@herbalifedev/leaf-mobile/dist-mobile/module/components/_internal/BottomSheet/BottomSheet.js
++++ b/node_modules/@herbalifedev/leaf-mobile/dist-mobile/module/components/_internal/BottomSheet/BottomSheet.js
+@@ -2,7 +2,7 @@
+ 
+ import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView, BottomSheetView } from "@gorhom/bottom-sheet";
+ import { useCallback, useEffect, useMemo, useRef } from "react";
+-import { BackHandler, KeyboardAvoidingView, Platform, View } from "react-native";
++import { BackHandler, KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
+ import { radius, semantic, size, spacing } from "@herbalifedev/leaf-mobile/tokens";
+ import { chain } from "../../../the-chain/index.js";
+ import { BottomSheetProvider, useBottomSheetPortalHost } from "./BottomSheetProvider.js";
+@@ -35,6 +35,8 @@ export const BottomSheet = ({
+ }) => {
+   const bottomSheetRef = useRef(null);
+   const hasPortalHost = useBottomSheetPortalHost();
++  const mergedScrollContentContainerStyle = useMemo(() => StyleSheet.flatten([baseContentContainerStyle, snapContentContainerStyle, contentContainerStyle]), [contentContainerStyle]);
++  const mergedStaticContentContainerStyle = useMemo(() => StyleSheet.flatten([baseContentContainerStyle, staticContentStyle, contentContainerStyle]), [contentContainerStyle]);
+   const resolvedSnapPoints = useMemo(() => {
+     const validSnapPoints = (snapPoints ?? [fallbackSnapPoint]).filter(point => Number.isFinite(point) && point > 0 && point <= 1).map(point => Math.max(0, Math.min(1, point)));
+     const deduped = Array.from(new Set(validSnapPoints));
+@@ -105,12 +107,12 @@ export const BottomSheet = ({
+       style: keyboardAvoidingStyle,
+       children: [header, scrollEnabled ? /*#__PURE__*/_jsx(BottomSheetScrollView, {
+         style: scrollViewStyle,
+-        contentContainerStyle: [baseContentContainerStyle, snapContentContainerStyle, contentContainerStyle],
++        contentContainerStyle: mergedScrollContentContainerStyle,
+         keyboardShouldPersistTaps: keyboardShouldPersistTaps,
+         showsVerticalScrollIndicator: showsVerticalScrollIndicator,
+         children: children
+       }) : /*#__PURE__*/_jsx(BottomSheetView, {
+-        style: [baseContentContainerStyle, staticContentStyle, contentContainerStyle],
++        style: mergedStaticContentContainerStyle,
+         children: children
+       }), footer, /*#__PURE__*/_jsx(View, {
+         style: bottomInsetStyle
+diff --git a/node_modules/@herbalifedev/leaf-mobile/dist-mobile/module/tokens/herbalife-natural.js b/node_modules/@herbalifedev/leaf-mobile/dist-mobile/module/tokens/herbalife-natural.js
+index 582f4ee..8e11755 100644
+--- a/node_modules/@herbalifedev/leaf-mobile/dist-mobile/module/tokens/herbalife-natural.js
++++ b/node_modules/@herbalifedev/leaf-mobile/dist-mobile/module/tokens/herbalife-natural.js
+@@ -456,8 +456,8 @@ export const semantic = {
+   brandColor: "#266431",
+   brandAlt: "#3CC358",
+   brandContent: "#ffffff",
+-  fontDisplay: "\"Herbalife Natural\", \"sans-serif\"",
+-  fontSans: "\"Herbalife Walsheim GT\", \"sans-serif\"",
++  fontDisplay: "HerbalifeNatural-Medium",
++  fontSans: "HerbalifeWalsheimGT-Regular",
+   headingFontWeight: 500,
+   textColor: "#101921",
+   labelColor: "#101921",

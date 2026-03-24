@@ -1,0 +1,4 @@
+@herbalifedev:registry=https://npm.pkg.github.com
+# Use a GitHub PAT with read:packages. Either export NPM_TOKEN and use the line below in your local .npmrc,
+# or copy this file to .npmrc and set the token (never commit .npmrc).
+//npm.pkg.github.com/:_authToken=${NPM_TOKEN}
