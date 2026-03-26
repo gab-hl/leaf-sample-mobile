@@ -88,7 +88,7 @@ export function LeafResourcesSidebar({ visible, onClose }: LeafResourcesSidebarP
   const otherMenu = toMenuList(OTHER_LINKS, navigate);
 
   return (
-    <SideBar visible={visible} onClose={onClose}>
+    <SideBar visible={visible} onClose={onClose} scrollable>
       <SideBar.Header
         content="text"
         title="Leaf resources"
