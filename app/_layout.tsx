@@ -1,5 +1,5 @@
 import { DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { BottomSheetProvider, LeafProvider } from '@herbalifedev/leaf-mobile';
+import {  LeafProvider } from '@herbalifedev/leaf-mobile';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -49,7 +49,6 @@ export default function RootLayout() {
   return (
     <SafeAreaProvider>
       <LeafProvider>
-        <BottomSheetProvider>
           <ThemeProvider value={DefaultTheme}>
             <Stack>
               <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
@@ -58,7 +57,6 @@ export default function RootLayout() {
             </Stack>
             <StatusBar style="auto" />
           </ThemeProvider>
-        </BottomSheetProvider>
       </LeafProvider>
     </SafeAreaProvider>
   );
