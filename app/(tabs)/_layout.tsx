@@ -2,6 +2,9 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 
 export default function TabLayout() {
+  // #region agent log
+  fetch('http://127.0.0.1:7311/ingest/85060403-6b8c-4f98-b20f-33b757007c58',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'d1c231'},body:JSON.stringify({sessionId:'d1c231',runId:'pre-fix',hypothesisId:'H1',location:'app/(tabs)/_layout.tsx:6',message:'TabLayout mount',data:{tabs:['home','index','forms','actions','visual','shell','lists','more']},timestamp:Date.now()})}).catch(()=>{});
+  // #endregion agent log
   return (
     <Tabs
       initialRouteName="home"

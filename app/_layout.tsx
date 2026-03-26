@@ -38,6 +38,10 @@ export default function RootLayout() {
     }
   }, [fontsLoaded, fontError]);
 
+  // #region agent log
+  fetch('http://127.0.0.1:7311/ingest/85060403-6b8c-4f98-b20f-33b757007c58',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'d1c231'},body:JSON.stringify({sessionId:'d1c231',runId:'pre-fix',hypothesisId:'H2',location:'app/_layout.tsx:41',message:'RootLayout render',data:{fontsLoaded:Boolean(fontsLoaded),fontError:Boolean(fontError)},timestamp:Date.now()})}).catch(()=>{});
+  // #endregion agent log
+
   if (!fontsLoaded && !fontError) {
     return null;
   }
