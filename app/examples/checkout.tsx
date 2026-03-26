@@ -16,8 +16,8 @@ import { useState } from 'react';
 import { Image, Platform, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { ShoppingBagDrawer, type ShoppingBagDrawerView } from './shopping-bag-drawer';
 import { showPressToast } from '@/utils/show-press-toast';
+import { ShoppingBagDrawer, type ShoppingBagDrawerView } from '@/components/examples/shopping-bag-drawer';
 
 const AVATAR_URI = 'https://i.pravatar.cc/128?img=5';
 const US_FLAG_URI = 'https://flagcdn.com/w80/us.png';

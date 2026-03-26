@@ -75,8 +75,7 @@ export function ShoppingBagDrawer({ visible, view, onClose, onViewChange }: Shop
                 Recent Products
               </Text>
             </View>
-            <Carousel
-              contentContainerStyle={carouselSectionContentStyle('compact', { paddingLeft: 0 })}>
+            <Carousel contentContainerStyle={carouselSectionContentStyle('compact', { paddingLeft: 0 })}>
               <ProductTile
                 title="Formula 1 Healthy Meal Nutritional Shake Mix"
                 subtitle="5 flavors 3 sizes"
@@ -110,8 +109,7 @@ export function ShoppingBagDrawer({ visible, view, onClose, onViewChange }: Shop
                 Recent Learning
               </Text>
             </View>
-            <Carousel
-              contentContainerStyle={carouselSectionContentStyle('compact', { paddingLeft: 0 })}>
+            <Carousel contentContainerStyle={carouselSectionContentStyle('compact', { paddingLeft: 0 })}>
               <MediaTile
                 imageSource="https://picsum.photos/seed/bag-l1/400/400"
                 title="Distributor Training"
@@ -196,3 +194,4 @@ const styles = StyleSheet.create({
     padding: 0,
   },
 });
+
